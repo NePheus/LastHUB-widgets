@@ -1,0 +1,20 @@
+{
+    "Id": "Remote_Testwidget",
+    "Name": "Test",
+    "Description": "This is a remote test widget",
+    "Color": "#0094ff",
+    "Icon": "bullseye",
+    "IconColor": "white",
+    "Placeholder": [
+        {
+            "Id": "placeholder1",
+            "Name": "Placeholder 1",
+            "Description": "Test 1"
+        },
+        {
+            "Id": "placeholder2",
+            "Name": "Placeholder 2",
+            "Description": "Test 2"
+        }
+    ]
+}
