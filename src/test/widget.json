@@ -1,10 +1,9 @@
 {
-    "Id": "Remote_Testwidget",
+    "Id": "Test",
     "Name": "Test",
     "Description": "This is a remote test widget",
-    "Color": "#0094ff",
-    "Icon": "bullseye",
-    "IconColor": "white",
+    "Category": "Test",
+    "IconSvg": "bullseye",
     "Placeholder": [
         {
             "Id": "placeholder1",
