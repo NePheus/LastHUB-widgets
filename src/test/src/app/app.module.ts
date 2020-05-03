@@ -9,12 +9,10 @@ import { TestComponent } from './test/test.component';
     entryComponents: [TestComponent],
 })
 export class AppModule {
-    constructor(private _injector: Injector) {}
-
-    ngDoBootstrap() {
-        const customElement = createCustomElement(TestComponent, {
-            injector: this._injector,
-        });
-        customElements.define('hub-widget-test', customElement);
+    constructor(private _injector: Injector) {
+        const el = createCustomElement(TestComponent, { injector: this._injector });
+        customElements.define('hub-widget-test', el);
     }
+
+    ngDoBootstrap() {}
 }
