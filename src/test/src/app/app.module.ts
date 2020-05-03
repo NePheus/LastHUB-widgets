@@ -14,7 +14,7 @@ export class AppModule {
     constructor(private _injector: Injector) {}
 
     ngDoBootstrap() {
-        const customElement = createCustomElement(AppComponent, {
+        const customElement = createCustomElement(TestComponent, {
             injector: this._injector,
         });
         customElements.define('hub-widget-test', customElement);
