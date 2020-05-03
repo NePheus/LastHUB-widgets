@@ -1,11 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'lasthub-test',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.ShadowDom,
+    selector: 'app-root',
+    template: '<hub-widget-test></hub-widget-test>',
 })
-export class AppComponent {
-    title = 'test';
-}
+export class AppComponent {}

@@ -2,9 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, TestComponent],
     imports: [BrowserModule],
     bootstrap: [AppComponent],
     entryComponents: [AppComponent],
@@ -16,6 +17,6 @@ export class AppModule {
         const customElement = createCustomElement(AppComponent, {
             injector: this._injector,
         });
-        customElements.define('lasthub-test', customElement);
+        customElements.define('hub-widget-test', customElement);
     }
 }
