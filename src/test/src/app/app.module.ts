@@ -9,10 +9,10 @@ import { TestComponent } from './test/test.component';
     entryComponents: [TestComponent],
 })
 export class AppModule implements DoBootstrap {
-    constructor(private _injector: Injector) {
+    constructor(private _injector: Injector) {}
+
+    ngDoBootstrap() {
         const el = createCustomElement(TestComponent, { injector: this._injector });
         customElements.define('hub-widget-testing', el);
     }
-
-    ngDoBootstrap() {}
 }
