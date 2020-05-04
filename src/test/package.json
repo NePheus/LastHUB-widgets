@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "testing",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "createWebComponent": "ng build --prod --output-hashing=none && node dist.js"
+    "build:elements": "ng build --prod --output-hashing=none && node widget-dist.js"
   },
   "prettier": {
     "charset": "utf-8",

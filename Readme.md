@@ -8,69 +8,49 @@
   npm i fs-extra concat --save-dev
   ```
 
-- Create dist.js and widget.json in the root folder of your project:
+- Create widget-dist.js and widget-config.json in the root folder of your project:
 
-  dist.js
+  widget-dist.js
 
   ```
   const fs = require('fs-extra');
   const concat = require('concat');
-  (async function build() {
-      const files = [
-          './dist/test/main.js',
-          './dist/test/polyfills.js',
-          './dist/test/runtime.js'
-      ]
-      await fs.ensureDir('../../dist/test/')
-      await concat(files, '../../dist/test/widget.js')
-  })()
+  (function build() {
+      fs.readFile(require.resolve('./widget-config.json'), async (config) => {
+          const files = [`./dist/${config.id}/main.js`, './dist/${config.id}/polyfills.js', './dist/${config.id}/runtime.js'];
+          await fs.ensureDir(`../../dist/${config.id}/`);
+          await fs.copy(`widget-config.json', '../../dist/${config.id}/widget.json`);
+          await concat(files, `../../dist/${config.id}/widget.js`);
+      });
+  })();
   ```
 
-  widget.json
+  widget-config.json
 
   ```
   {
-      "Id": "WIDGETIDENTIFIER",
-      "Name": "WIDGETNAME",
-      "Description": "WIDGETDESCRIPTION",
-      "Color": "#0094ff",
-      "Icon": "bullseye",
-      "IconColor": "white",
-      "Placeholder": [
+      "id": "WIDGETIDENTIFIER",
+      "name": "WIDGETNAME",
+      "description": "WIDGETDESCRIPTION",
+      "color": "#0094ff",
+      "icon": "bullseye",
+      "iconColor": "white",
+      "placeholder": [
           {
-              "Id": "placeholder1",
-              "Name": "Placeholder 1",
-              "Description": "Test 1"
+              "id": "placeholder1",
+              "name": "Placeholder 1",
+              "description": "Test 1"
           },
           {
-              "Id": "placeholder2",
-              "Name": "Placeholder 2",
-              "Description": "Test 2"
+              "id": "placeholder2",
+              "name": "Placeholder 2",
+              "description": "Test 2"
           },
       ]
   }
   ```
 
-- Modify app.module:
-
-  ```
-  @NgModule({
-      ...
-      entryComponents: [AppComponent],
-  })
-  export class AppModule {
-      constructor(private _injector: Injector) {}
-
-      ngDoBootstrap() {
-          const customElement = createCustomElement(AppComponent, {
-              injector: this._injector,
-          });
-          customElements.define('lasthub-test', customElement);
-      }
-  }
-  ```
-
-- Modify app.component:
+- Create WIDGETNAME.component and add ShadowDom encapsulation:
 
   ```
   @Component({
@@ -78,15 +58,34 @@
       encapsulation: ViewEncapsulation.ShadowDom,
   })
   ```
+  
+- Modify app.module:
+
+  ```
+  @NgModule({
+      ...
+      entryComponents: [WIDGETNAMEComponent],
+  })
+  export class AppModule {
+      constructor(private _injector: Injector) {}
+
+      ngDoBootstrap() {
+          const customElement = createCustomElement(WIDGETNAMEComponent, {
+              injector: this._injector,
+          });
+          customElements.define('hub-widget-WIDGETNAME', customElement);
+      }
+  }
+  ```
 
 - Add the following line to the 'scripts' area of the package.json:
 
   ```
-  "createWebComponent": "ng build --prod --output-hashing=none && dist.js"
+  "build:elements": "ng build --prod --output-hashing=none && node widget-dist.js"
   ```
 
 - Deploy web component:
 
   ```
-  npm run createWebComponent
+  npm run build:elements
   ```
