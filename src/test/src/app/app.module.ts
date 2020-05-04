@@ -11,7 +11,7 @@ import { TestComponent } from './test/test.component';
 export class AppModule implements DoBootstrap {
     constructor(private _injector: Injector) {
         const el = createCustomElement(TestComponent, { injector: this._injector });
-        customElements.define('hub-widget-test', el);
+        customElements.define('hub-widget-testing', el);
     }
 
     ngDoBootstrap() {}
